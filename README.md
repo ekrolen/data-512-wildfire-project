@@ -35,7 +35,20 @@ Wildland_Fire_Polygon_Metadata.xml - This file contains text metadata about the 
   
 ### Intermediate Data Files Created During Runtime
 
-limited_fires.json - This file contains the same field as "USGS_Wildland_Fire_Combined_Dataset" but only contains fires which had a Fire_Year between 1963 and 2020 inclusive. It was created to allow programmers to return to their work and run parts of the analysis at different times.
+fire_distances.csv - This file is created by calculating the distance between each fire in the USGS wildland fire combined data and Pahrump, NV. It has two columns:
+    OBJECTID - the OBJECTID of the fire in question
+    shortest_dist - the shortest distance between the edge of the fire and Pahrump
+
+fire_features.csv - This file takes the relevent fire features for fires occurring after 1963 (inclusive) from the USGS wildland fire combined data which will later be used to create a smoke estimate. It has the following columns:
+    objectid - the fire's objectid used to uniquely identify it
+    Assigned_Fire_Type - what kind of fire was reported. Values include wildfire, likely wildfire, unknown - likely wildfire, prescribed fire, unknown - likely prescribed fire
+    Fire_Year - the year the fire took place
+    GIS_Acres - acres of the fire polygon calculated using the Calculate Geometry tool in ArcGIS pro
+    Listed_Fire_Dates - each fire date listed from the merged datasets
+    Listed_Rx_Reported_Acres - prescribed fire reported acres listed in merged datasets
+    Wildfire_Notice - indicator of quality of wildfire data
+    Prescribed_Burn_Notice - indicator of quality of prescribed fire data
+    Overlap_Within_1_or_2_Flag - areas that burned with >10% overlap of the current fire within 1 or 2 years of the current burn as determined by ArcGIS Tabulate Intersection Tool
 
 ### Cleaned Data Files
 
@@ -52,7 +65,7 @@ limited_fires.json - This file contains the same field as "USGS_Wildland_Fire_Co
     Fire data in our source was only collected until 2020, so there will be a meaningful data gap between 2020 and 2023.
 
 ### fire_distances.csv Issues & Considerations
-Our current fire distance calculator only runs for fires with a "ring" geometry. Approximately 40 fires in the USGS_Wildland_Fire_Combined_Dataset have "curve ring" shapes. Due to their incompatability with our processing methods we will discard them from the data.
+    Our current fire distance calculator only runs for fires with a "ring" geometry. 35 fires in the USGS_Wildland_Fire_Combined_Dataset have "curve ring" shapes. Due to their incompatability with our processing methods we will discard them from the data.
 
 
 
@@ -68,6 +81,8 @@ Our current fire distance calculator only runs for fires with a "ring" geometry.
 
 5. Scripts in the data_filtering.ipynb will require both the [Pyproj](https://pyproj4.github.io/pyproj/stable/index.html), the [geojson](https://pypi.org/project/geojson/) module and the wildfire user module. Pyproj and geojson can be installed via pip. The wildfire user module should be downloaded from the course website, unzipped, and moved into the folder pointed to by your PYTHONPATH system variable.
 
-6. Run the data_filtering script to select only fires in 1963-2023 which were within 1250 miles from Pahrump, NV.
+6. Run the data_acquisition script located in scr/ to select only fires in 1963-2023 which were within 1250 miles from Pahrump, NV.
+
+7. Run the data_processing script located in scr/ to create the fire smoke estimator for Pahrump.
 
 
