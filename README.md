@@ -35,6 +35,8 @@ Wildland_Fire_Polygon_Metadata.xml - This file contains text metadata about the 
   
 ### Intermediate Data Files Created During Runtime
 
+limited_fires.json - This file contains the same field as "USGS_Wildland_Fire_Combined_Dataset" but only contains fires which had a Fire_Year between 1963 and 2020 inclusive. It was created to allow programmers to return to their work and run parts of the analysis at different times.
+
 ### Cleaned Data Files
 
 
@@ -49,6 +51,10 @@ Wildland_Fire_Polygon_Metadata.xml - This file contains text metadata about the 
     Because data was combined from multiple sources, field entries may not exactly match across them. Given considerable concern about data quality, all attributes returned for a single fire are captured with parenthetical numbers indicating how many time the entry appeared. To use an example from the documentation, "if 10 records contained a polygon for the Soda wildfire the script looped through the fire names and assembled them in the Fire_Name field count. Using this example, let's say that 5 rows had a fire name of "Soda", 3 had "SODA", and two had "soda". The resulting Fire_Name attribute in the USGS_Wildland_Fire_Combined_Dataset for that row would appear like this: "Soda (5), SODA (3), soda (2)" where the parenthetical values represent the count of times that attribute appeared." Dates are also combined into a single field to avoid favoring any single date. They use the same parenthetical numberical indication for the number of times the date appeared. Date types may not be identical.
     Fire data in our source was only collected until 2020, so there will be a meaningful data gap between 2020 and 2023.
 
+### fire_distances.csv Issues & Considerations
+Our current fire distance calculator only runs for fires with a "ring" geometry. Approximately 40 fires in the USGS_Wildland_Fire_Combined_Dataset have "curve ring" shapes. Due to their incompatability with our processing methods we will discard them from the data.
+
+
 
 ## Anaysis Reproduction Steps
 
@@ -56,8 +62,12 @@ Wildland_Fire_Polygon_Metadata.xml - This file contains text metadata about the 
 
 2. Unzip the downloaded zip file. Inside the contained "GeoJSON Exports" folder you will see combined and merged datasets. Per the USGS website, "These datasets were created by combining 40 different, published wildland fire data sources. Each one of these data sources has a different spatial scale, spatial resolution, and time period for their particular wildland fire dataset. The purpose of these new datasets is to combine these disparate wildfire datasets, using a common set of attributes, into a single set of polygons with a single fire boundary for each fire. This dataset is intended to create a more comprehensive fire dataset than the existing datasets while eliminating duplication of fire polygons and attributes." We will be using only the "combined" datasets to avoid the duplication of fires in the "merged" datasets.
 
-3. Copy or move the "USGS_Wildland_Fire_Combined_Dataset", "usgs_wildland_fire_combined_dataset.json.xml" and "Wildland_Fire_Polygon_Metadata.xml" into the "raw_data" folder of your repo. The Metadata file does not contain analyzable data, but is useful for understanding the raw data more thoroughly. Depending on the size of your file, you may need to enable Git's LFS.
+3. Copy or move the "usgs_wildland_fire_combined_dataset.json.xml" and "Wildland_Fire_Polygon_Metadata.xml" into the "raw_data" folder of your repo. The Metadata file does not contain analyzable data, but is useful for understanding the raw data more thoroughly. 
 
-4. Run the data_filtering script to select only fires in May-Oct for 1963-2023 and which were within 1250 miles from Pahrump, NV.
+4. Save your "USGS_Wildland_Fire_Combined_Dataset.json" file to the directory above your parent directory with the raw data, clean data, code etc. We used GitHub to manage code and the JSON is larger than their file systems will allow for. For this reason, we must reduce the data first, then save the data in an intermediate_data folder.
+
+5. Scripts in the data_filtering.ipynb will require both the [Pyproj](https://pyproj4.github.io/pyproj/stable/index.html), the [geojson](https://pypi.org/project/geojson/) module and the wildfire user module. Pyproj and geojson can be installed via pip. The wildfire user module should be downloaded from the course website, unzipped, and moved into the folder pointed to by your PYTHONPATH system variable.
+
+6. Run the data_filtering script to select only fires in 1963-2023 which were within 1250 miles from Pahrump, NV.
 
 
