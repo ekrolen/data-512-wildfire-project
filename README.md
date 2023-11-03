@@ -57,6 +57,11 @@ filtered_fire_info.csv - This file combines the fire_distances and fire_features
 
 ### Cleaned Data Files
 
+annual_smoke_estimate.csv - This file contains the annual smoke estimates for Pahrump, NV. 0 would indicate no smoke all year. Higher values indicate worse smoke over the course of the year. Columns are as follows:
+    Fire_Year - Year the fires occurred in
+    Annual_Smoke_Estimate - Annual smoke estimate created by summing individual smoke estimates over the fire year
+    
+
 
 ## Known Data Issues and Special Considerations
 
@@ -70,9 +75,10 @@ filtered_fire_info.csv - This file combines the fire_distances and fire_features
     Fire data in our source was only collected until 2020, so there will be a meaningful data gap between 2020 and 2023.
 
 ### fire_distances.csv Issues & Considerations
-    Our current fire distance calculator only runs for fires with a "ring" geometry. 35 fires in the USGS_Wildland_Fire_Combined_Dataset have "curve ring" shapes. Due to their incompatability with our processing methods we will discard them from the data.
+   Our current fire distance calculator only runs for fires with a "ring" geometry. 35 fires in the USGS_Wildland_Fire_Combined_Dataset have "curve ring" shapes. Due to their incompatability with our processing methods we will discard them from the data.
 
-
+### FINAL DATA OUTPUT SMOKE ESTIMATES
+    We calculate the previously burned acreage in our smoke estimate to discount the amount of smoke it will product. Unfortunately not all entries are able to be parsed uniformly. In the event that the percentage of fires with pre-burned acres that cannot be read is less than 10%, we will assume no-preburned acres for those fires.
 
 ## Anaysis Reproduction Steps
 
