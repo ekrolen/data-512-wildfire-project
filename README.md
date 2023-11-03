@@ -37,14 +37,13 @@ fire_distances.csv - This file is created by calculating the distance between ea
     OBJECTID - the OBJECTID of the fire in question
     shortest_dist - the shortest distance between the edge of the fire and Pahrump
 
+close_fires.csv - This file has the same fields as the above, but only contains fires within 1250 miles from town.
+
 fire_features.csv - This file takes the relevent fire features for fires occurring after 1963 (inclusive) from the USGS wildland fire combined data which will later be used to create a smoke estimate. It has the following columns:
     objectid - the fire's objectid used to uniquely identify it
     Assigned_Fire_Type - what kind of fire was reported. Values include wildfire, likely wildfire, unknown - likely wildfire, prescribed fire, unknown - likely prescribed fire
     Fire_Year - the year the fire took place
     GIS_Acres - acres of the fire polygon calculated using the Calculate Geometry tool in ArcGIS pro
-    Listed_Fire_Dates - each fire date listed from the merged datasets
-    Listed_Rx_Reported_Acres - prescribed fire reported acres listed in merged datasets
-    Prescribed_Burn_Notice - indicator of quality of prescribed fire data
     Overlap_Within_1_or_2_Flag - areas that burned with >10% overlap of the current fire within 1 or 2 years of the current burn as determined by ArcGIS Tabulate Intersection Tool
 
 filtered_fire_info.csv - This file combines the fire_distances and fire_features information above to keep select information only on the fires which are within 1250 miles from Pahrump and occurred after 1962 (inclusive). The columns are as follows:
@@ -52,9 +51,6 @@ filtered_fire_info.csv - This file combines the fire_distances and fire_features
     Assigned_Fire_Type - what kind of fire was reported. Values include wildfire, likely wildfire, unknown - likely wildfire, prescribed fire, unknown - likely prescribed fire
     Fire_Year - the year the fire took place
     GIS_Acres - acres of the fire polygon calculated using the Calculate Geometry tool in ArcGIS pro
-    Listed_Fire_Dates - each fire date listed from the merged datasets
-    Listed_Rx_Reported_Acres - prescribed fire reported acres listed in merged datasets
-    Prescribed_Burn_Notice - indicator of quality of prescribed fire data
     Overlap_Within_1_or_2_Flag - areas that burned with >10% overlap of the current fire within 1 or 2 years of the current burn as 
     shortest_dist - the shortest distance between the edge of the fire and Pahrump
 
