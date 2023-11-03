@@ -23,12 +23,10 @@ The USGS Wildland Fire Data resides in the Public Domain. Data from the U.S. Gov
 USGS_Wildland_Fire_Combined_Dataset - This data contains the combined polygons and additional fields of matching fires found across 40 datasources. There are six keys which we describe in detail below:
     displayFieldName - Empty value
     gemoetryType - Single value of "esriGeometryPolygon"
-    spatialReference - Dictionary of {'wkid': 102008, 'latestWkid': 102008}. Wkid is not referenced in the data documentation provided by the USGS.
+    spatialReference - Dictionary of {'wkid': 102008, 'latestWkid': 102008}
     fieldAliases - This dictionary contains each of the 30 field variables as keys, and their "English translations" as values. As an example, 'USGS_Assigned_ID':'USGS Assigned ID'. The variable names and their aliases are straightforward. For more information on what each field means, please see the USGS provided metadata as this information is not provided in the data itself.
     fields - This key returns a list of dictionaries which provides the name of each field, its type (e.g., esriFieldTypeOID, esriFieldTypeInteger), its alias, and occasionally the length of the field (e.g., 100, 300000)
     features - This key returns what we will be using as the fire data. It is a list of 135,061 'attribute' dictionaries, each of which also contains a dictionary with the fields specified in "fields" or "fieldAliases". 
-
-usgs_wildland_fire_combined_dataset.json.xml - 
 
 Wildland_Fire_Polygon_Metadata.xml - This file contains text metadata about the fire data. It will not be parsed and analyzed, but is an indespensible reference for data users.
 
@@ -46,9 +44,20 @@ fire_features.csv - This file takes the relevent fire features for fires occurri
     GIS_Acres - acres of the fire polygon calculated using the Calculate Geometry tool in ArcGIS pro
     Listed_Fire_Dates - each fire date listed from the merged datasets
     Listed_Rx_Reported_Acres - prescribed fire reported acres listed in merged datasets
-    Wildfire_Notice - indicator of quality of wildfire data
     Prescribed_Burn_Notice - indicator of quality of prescribed fire data
     Overlap_Within_1_or_2_Flag - areas that burned with >10% overlap of the current fire within 1 or 2 years of the current burn as determined by ArcGIS Tabulate Intersection Tool
+
+filtered_fire_info.csv - This file combines the fire_distances and fire_features information above to keep select information only on the fires which are within 1250 miles from Pahrump and occurred after 1962 (inclusive). The columns are as follows:
+    OBJECTID - the OBJECTID of the fire in question
+    Assigned_Fire_Type - what kind of fire was reported. Values include wildfire, likely wildfire, unknown - likely wildfire, prescribed fire, unknown - likely prescribed fire
+    Fire_Year - the year the fire took place
+    GIS_Acres - acres of the fire polygon calculated using the Calculate Geometry tool in ArcGIS pro
+    Listed_Fire_Dates - each fire date listed from the merged datasets
+    Listed_Rx_Reported_Acres - prescribed fire reported acres listed in merged datasets
+    Prescribed_Burn_Notice - indicator of quality of prescribed fire data
+    Overlap_Within_1_or_2_Flag - areas that burned with >10% overlap of the current fire within 1 or 2 years of the current burn as 
+    shortest_dist - the shortest distance between the edge of the fire and Pahrump
+
 
 ### Cleaned Data Files
 
@@ -75,13 +84,13 @@ fire_features.csv - This file takes the relevent fire features for fires occurri
 
 2. Unzip the downloaded zip file. Inside the contained "GeoJSON Exports" folder you will see combined and merged datasets. Per the USGS website, "These datasets were created by combining 40 different, published wildland fire data sources. Each one of these data sources has a different spatial scale, spatial resolution, and time period for their particular wildland fire dataset. The purpose of these new datasets is to combine these disparate wildfire datasets, using a common set of attributes, into a single set of polygons with a single fire boundary for each fire. This dataset is intended to create a more comprehensive fire dataset than the existing datasets while eliminating duplication of fire polygons and attributes." We will be using only the "combined" datasets to avoid the duplication of fires in the "merged" datasets.
 
-3. Copy or move the "usgs_wildland_fire_combined_dataset.json.xml" and "Wildland_Fire_Polygon_Metadata.xml" into the "raw_data" folder of your repo. The Metadata file does not contain analyzable data, but is useful for understanding the raw data more thoroughly. 
+3. Copy or move the "Wildland_Fire_Polygon_Metadata.xml" into the "raw_data" folder of your repo. The Metadata file does not contain analyzable data, but is useful for understanding the raw data more thoroughly. 
 
-4. Save your "USGS_Wildland_Fire_Combined_Dataset.json" file to the directory above your parent directory with the raw data, clean data, code etc. We used GitHub to manage code and the JSON is larger than their file systems will allow for. For this reason, we must reduce the data first, then save the data in an intermediate_data folder.
+4. Save your "USGS_Wildland_Fire_Combined_Dataset.json" file to the directory above your parent directory with the raw data, clean data, code etc. We used GitHub to manage code and the JSON is larger than their file systems will allow for. For this reason, we must reduce the data first, then save the data in an intermediate_data folder (output of data_acquisition code below).
 
 5. Scripts in the data_filtering.ipynb will require both the [Pyproj](https://pyproj4.github.io/pyproj/stable/index.html), the [geojson](https://pypi.org/project/geojson/) module and the wildfire user module. Pyproj and geojson can be installed via pip. The wildfire user module should be downloaded from the course website, unzipped, and moved into the folder pointed to by your PYTHONPATH system variable.
 
-6. Run the data_acquisition script located in scr/ to select only fires in 1963-2023 which were within 1250 miles from Pahrump, NV.
+6. Run the data_acquisition script located in scr/ to select information on fires in 1963-2023 which were within 1250 miles from Pahrump, NV.
 
 7. Run the data_processing script located in scr/ to create the fire smoke estimator for Pahrump.
 
