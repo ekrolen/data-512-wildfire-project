@@ -88,6 +88,6 @@ filtered_fire_info.csv - This file combines the fire_distances and fire_features
 
 6. Run the data_acquisition script located in scr/ to select information on fires in 1963-2023 which were within 1250 miles from Pahrump, NV.
 
-7. Run the data_processing script located in scr/ to create the fire smoke estimator for Pahrump.
+7. Run the data_processing script located in scr/ to create the fire smoke estimators for Pahrump. Significant assumptions and judgements went in to defining and calculating the smoke estimates, these decisions are captured in the "Purpose" section of the script.
 
 
