@@ -96,4 +96,6 @@ annual_smoke_estimate.csv - This file contains the annual smoke estimates for Pa
 
 7. Run the data_processing script located in scr/ to create the fire smoke estimators for Pahrump. Significant assumptions and judgements went in to defining and calculating the smoke estimates, these decisions are captured in the "Purpose" section of the script.
 
+8. If you're interested in understanding how well our smoke estimate compares to the EPA's Air Quality Index, check out the epa_comparison script in scr/.
+
 
