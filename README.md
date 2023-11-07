@@ -54,6 +54,14 @@ filtered_fire_info.csv - This file combines the fire_distances and fire_features
     Overlap_Within_1_or_2_Flag - areas that burned with >10% overlap of the current fire within 1 or 2 years of the current burn as 
     shortest_dist - the shortest distance between the edge of the fire and Pahrump
 
+unaggregated_aqi.csv - This file contains AQI information for each EPA monitoring station within Nye County over fire season from 1963-2023 (or the years in that duration for which data was available). See "Known Data Issues and Special Considerations" for data quirks. The columns are as follows:
+    site_number - numbered site location for each sensor
+    parameter_code - what gas/particulate matter the sensor collects data for
+    sample_duration - the duration of the sample (in our data, constrained to 24-hour average data)
+    date_local - date the sample was collected
+    aqi - AQI for the parameter code
+
+
 
 ### Cleaned Data Files
 
@@ -61,6 +69,9 @@ annual_smoke_estimate.csv - This file contains the annual smoke estimates for Pa
     Fire_Year - Year the fires occurred in
     Annual_Smoke_Estimate - Annual smoke estimate created by averaging individual smoke estimates over the fire year
     
+yearly_avg_aqi.csv - This file contains aggregate yearly average AQI estimates for all sensors within Nye County. The columns are as follows:
+    year - year the AQI information was collected
+    annual_avg_aqi - the average of the AQI particulate information across all sensors in Nye county, taken over fire season (may 1st - Oct 31st) 1963-2023.
 
 
 ## Known Data Issues and Special Considerations
@@ -80,7 +91,7 @@ annual_smoke_estimate.csv - This file contains the annual smoke estimates for Pa
 ### annual_smoke_estimate.csv Considerations
    We calculate the previously burned acreage per fire in our smoke estimate to discount the amount of smoke it will product. Unfortunately not all entries are able to be parsed uniformly. In the event that the percentage of fires with unreadable pre-burned acres is less than 10%, we will assume no-preburned acres for those fires. Otherwise, the data_processing program will print a warning message to the user.
     
-### FINAL EPA ESTIMATE CONSIDERATIONS
+### unaggregated_aqi.csv Considerations
    EPA AQI data is available year round. However, as mentioned in our epa_comparison code, because we are comparing it with our smoke estimate which is primarily gathered in fire season (May 1st - Oct 31st) we will limit our AQI data to information taken May 1st - Oct 31st annually. Additionally, while some stations may produce granular AQI measurements (e.g., on the hourly scale), "The Air Quality Index is based on daily air quality summaries, specifically daily maximums or daily averages. It is not valid to use shorter-term (e.g. hourly) data to calculate an AQI value." [Technical Assistance Document for the Reporting of Daily Air Quality – the Air Quality Index (AQI)](https://www.airnow.gov/sites/default/files/2020-05/aqi-technical-assistance-document-sept2018.pdf) Due to this standard, we will only use the 24-HR BLK AVG AQI measurement for each gas/particulate.
     After pulling the data we find that some sensors do not collect any data (e.g., sensors 0001, 0002, 0003, 0004), and our local sensors only collect information on particulate matter with a diameter of 10 microns or less (PM10 Total 0-10um STP, code 81102). Per the [California Air Resources Board](https://ww2.arb.ca.gov/smokereadyca#:~:text=Particles%20from%20smoke%20can%20be,pass%20directly%20into%20the%20bloodstream), "Particles from smoke can be very small (with diameters of 2.5 micrometers and smaller)" so we are still capturing some wildfire air quality impacts even with dimished gas/particulate reporting.
 
