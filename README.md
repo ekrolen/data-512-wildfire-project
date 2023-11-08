@@ -74,6 +74,8 @@ yearly_avg_aqi.csv - This file contains aggregate yearly average AQI estimates f
 2049_smoke_estimates.csv - This file contains the smoke estimates for years 1963-2049. The columns are:
     Fire Year - year containing fires
     Predicted Smoke Estimates - smoke estimates from linear regression model
+    Lower Estimate Bound - Lower bound of 95% confidence interval for predictions before 2021, lower bound of prediction interval for estimates made after 2020
+    Upper Estimate Bound - Upper bound of 95% confidence interval for predictions before 2021, upper bound of prediction interval for estimates made after 2020
     Calculated Smoke Estimates - smoke estimates created using actual data
 
 
@@ -97,6 +99,10 @@ yearly_avg_aqi.csv - This file contains aggregate yearly average AQI estimates f
 ### unaggregated_aqi.csv Considerations
    EPA AQI data is available year round. However, as mentioned in our epa_comparison code, because we are comparing it with our smoke estimate which is primarily gathered in fire season (May 1st - Oct 31st) we will limit our AQI data to information taken May 1st - Oct 31st annually. Additionally, while some stations may produce granular AQI measurements (e.g., on the hourly scale), "The Air Quality Index is based on daily air quality summaries, specifically daily maximums or daily averages. It is not valid to use shorter-term (e.g. hourly) data to calculate an AQI value." [Technical Assistance Document for the Reporting of Daily Air Quality – the Air Quality Index (AQI)](https://www.airnow.gov/sites/default/files/2020-05/aqi-technical-assistance-document-sept2018.pdf) Due to this standard, we will only use the 24-HR BLK AVG AQI measurement for each gas/particulate.
     After pulling the data we find that some sensors do not collect any data (e.g., sensors 0001, 0002, 0003, 0004), and our local sensors only collect information on particulate matter with a diameter of 10 microns or less (PM10 Total 0-10um STP, code 81102). Per the [California Air Resources Board](https://ww2.arb.ca.gov/smokereadyca#:~:text=Particles%20from%20smoke%20can%20be,pass%20directly%20into%20the%20bloodstream), "Particles from smoke can be very small (with diameters of 2.5 micrometers and smaller)" so we are still capturing some wildfire air quality impacts even with dimished gas/particulate reporting.
+    
+### 2049_smoke_estimates.csv Considerations
+   It's noted in the smoke_predictor code, but bears mentioning here - we use a linear regression to model fire smoke for years 1963-2049. Unfortunately there is unequal variance in the residuals, meaning that confidence/prediction intervals are anti-conservative. Plainly speaking, while we calculate 95% confidence/prediction intervals, the true value is not contained within the interval 95% of the time. If given more time, we would recalaculate a more conservative set of standard errors (e.g., by using the Huber-White formula).
+
 
 ## Anaysis Reproduction Steps
 
@@ -118,7 +124,7 @@ yearly_avg_aqi.csv - This file contains aggregate yearly average AQI estimates f
 
 9. To create a prediction of future smoke, run the smoke_predictor script located in the scr/ folder.
 
-10. To visualize the number of fires occurring every 50 mile distance, total acres burned per year, and the fire smoke estimate vs AQI estimate please run the data_visualization script in scr/.
+10. To visualize the number of fires occurring every 50 mile distance, total acres burned per year, and the fire smoke estimate vs AQI estimates for Pahrump, NV 1963-2020, please run the data_visualization script in scr/.
 
 
 
