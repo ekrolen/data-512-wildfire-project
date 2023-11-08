@@ -37,7 +37,7 @@ fire_distances.csv - This file is created by calculating the distance between ea
     OBJECTID - the OBJECTID of the fire in question
     shortest_dist - the shortest distance between the edge of the fire and Pahrump
 
-close_fires.csv - This file has the same fields as the above, but only contains fires within 1250 miles from town.
+close_fires.csv - This file has the same fields as the above, but only contains fires within 1250 miles from Pahrump.
 
 fire_features.csv - This file takes the relevent fire features for fires occurring after 1963 (inclusive) from the USGS wildland fire combined data which will later be used to create a smoke estimate. It has the following columns:
     objectid - the fire's objectid used to uniquely identify it
@@ -61,8 +61,6 @@ unaggregated_aqi.csv - This file contains AQI information for each EPA monitorin
     date_local - date the sample was collected
     aqi - AQI for the parameter code
 
-
-
 ### Cleaned Data Files
 
 annual_smoke_estimate.csv - This file contains the annual smoke estimates for Pahrump, NV. 0 would indicate no smoke all year. Higher values indicate worse smoke over the course of the year. Columns are as follows:
@@ -72,6 +70,11 @@ annual_smoke_estimate.csv - This file contains the annual smoke estimates for Pa
 yearly_avg_aqi.csv - This file contains aggregate yearly average AQI estimates for all sensors within Nye County. The columns are as follows:
     year - year the AQI information was collected
     annual_avg_aqi - the average of the AQI particulate information across all sensors in Nye county, taken over fire season (may 1st - Oct 31st) 1963-2023.
+    
+2049_smoke_estimates.csv - This file contains the smoke estimates for years 1963-2049. The columns are:
+    Fire Year - year containing fires
+    Predicted Smoke Estimates - smoke estimates from linear regression model
+    Calculated Smoke Estimates - smoke estimates created using actual data
 
 
 ## Known Data Issues and Special Considerations
@@ -103,14 +106,20 @@ yearly_avg_aqi.csv - This file contains aggregate yearly average AQI estimates f
 
 3. Copy or move the "Wildland_Fire_Polygon_Metadata.xml" into the "raw_data" folder of your repo. The Metadata file does not contain analyzable data, but is useful for understanding the raw data more thoroughly. 
 
-4. Save your "USGS_Wildland_Fire_Combined_Dataset.json" file to the directory above your parent directory with the raw data, clean data, code etc. We used GitHub to manage code and the JSON is larger than their file systems will allow for. For this reason, we must reduce the data first, then save the data in an intermediate_data folder (output of data_acquisition code below).
+4. Save your "USGS_Wildland_Fire_Combined_Dataset.json" file to the directory above your project parent directory. We used GitHub to manage code and the JSON is larger than their file systems will allow. For this reason, we must reduce the data first, then save the data in the intermediate_data folder (see next step for data acquisition and filtering process).
 
-5. Scripts in the data_filtering.ipynb will require both the [Pyproj](https://pyproj4.github.io/pyproj/stable/index.html), the [geojson](https://pypi.org/project/geojson/) module and the wildfire user module. Pyproj and geojson can be installed via pip. The wildfire user module should be downloaded from the course website, unzipped, and moved into the folder pointed to by your PYTHONPATH system variable.
+5. The data_acquisition script will require both the [Pyproj](https://pyproj4.github.io/pyproj/stable/index.html), the [geojson](https://pypi.org/project/geojson/) module and the wildfire user module from our class folder. Pyproj and geojson can be installed via pip. The wildfire user module should be downloaded from the course website, unzipped, and moved into the folder pointed to by your PYTHONPATH system variable.
 
 6. Run the data_acquisition script located in scr/ to select information on fires in 1963-2023 which were within 1250 miles from Pahrump, NV.
 
 7. Run the data_processing script located in scr/ to create the fire smoke estimators for Pahrump. Significant assumptions and judgements went in to defining and calculating the smoke estimates, these decisions are captured in the "Purpose" section of the script.
 
 8. If you're interested in understanding how well our smoke estimate compares to the EPA's Air Quality Index, check out the epa_comparison script in scr/.
+
+9. To create a prediction of future smoke, run the smoke_predictor script located in the scr/ folder.
+
+10. To visualize the number of fires occurring every 50 mile distance, total acres burned per year, and the fire smoke estimate vs AQI estimate please run the data_visualization script in scr/.
+
+
 
 
