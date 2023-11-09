@@ -20,7 +20,7 @@ The USGS Wildland Fire Data resides in the Public Domain. Data from the U.S. Gov
 
 ### Raw/Input Data Files
 
-USGS_Wildland_Fire_Combined_Dataset - This data contains the combined polygons and additional fields of matching fires found across 40 datasources. There are six keys which we describe in detail below:
+USGS_Wildland_Fire_Combined_Dataset - This data is saved above the parent project directory and contains the combined polygons and additional fields of matching fires found across 40 datasources. There are six keys which we describe in detail below:
     displayFieldName - Empty value
     gemoetryType - Single value of "esriGeometryPolygon"
     spatialReference - Dictionary of {'wkid': 102008, 'latestWkid': 102008}
@@ -125,7 +125,3 @@ yearly_avg_aqi.csv - This file contains aggregate yearly average AQI estimates f
 9. To create a prediction of future smoke, run the smoke_predictor script located in the scr/ folder.
 
 10. To visualize the number of fires occurring every 50 mile distance, total acres burned per year, and the fire smoke estimate vs AQI estimates for Pahrump, NV 1963-2020, please run the data_visualization script in scr/.
-
-
-
-
