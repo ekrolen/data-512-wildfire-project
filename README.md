@@ -13,7 +13,7 @@ We will begin by analyzing historical fire data to establish in-city smoke estim
 
 The code used in this project is licensed under the MIT license - more information can be found in the license file in the top-level repo.
 
-The USGS Wildland Fire Data resides in the Public Domain. Data from the U.S. Government are freely redistributable with proper metadata and source attribution. The U.S. Geological Survey is the originator of these data.
+The USGS Wildland Fire Data resides in the Public Domain. Data from the U.S. Government are freely redistributable with proper metadata and source attribution. The U.S. Geological Survey is the originator of these data. See "raw_data" folder for metadata.
 
 
 ## Data File Information
@@ -25,8 +25,8 @@ USGS_Wildland_Fire_Combined_Dataset - This data contains the combined polygons a
     gemoetryType - Single value of "esriGeometryPolygon"
     spatialReference - Dictionary of {'wkid': 102008, 'latestWkid': 102008}
     fieldAliases - This dictionary contains each of the 30 field variables as keys, and their "English translations" as values. As an example, 'USGS_Assigned_ID':'USGS Assigned ID'. The variable names and their aliases are straightforward. For more information on what each field means, please see the USGS provided metadata as this information is not provided in the data itself.
-    fields - This key returns a list of dictionaries which provides the name of each field, its type (e.g., esriFieldTypeOID, esriFieldTypeInteger), its alias, and occasionally the length of the field (e.g., 100, 300000)
-    features - This key returns what we will be using as the fire data. It is a list of 135,061 'attribute' dictionaries, each of which also contains a dictionary with the fields specified in "fields" or "fieldAliases". 
+    fields - This key returns a list of dictionaries which provides the name of each field, its type (e.g., esriFieldTypeOID, esriFieldTypeInteger), its alias, and occasionally the length of the field (e.g., 100, 300000). See Wildland_Fire_Polygon_Metadata.xml for more.
+    features - This key returns what we will be using as the fire data. It is a list of 135,061 'attribute' dictionaries, each of which also contains a dictionary with the fields specified in "fields" or "fieldAliases". See Wildland_Fire_Polygon_Metadata.xml for more.
 
 Wildland_Fire_Polygon_Metadata.xml - This file contains text metadata about the fire data. It will not be parsed and analyzed, but is an indespensible reference for data users.
 
