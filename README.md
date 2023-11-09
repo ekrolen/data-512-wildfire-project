@@ -5,8 +5,7 @@ This repo contains the code, README, and other files necessary to complete the D
 ## Goal
 This goal of this project is to analyze wildfire smoke impacts on Pahrump, Nevada (Population 42,471, Nye County) with the intent of generating insights to inform policy makers, city managers, city councils, and other civic institutions to make informed plans for future wildfire mitigation.
 
-We will begin by analyzing historical fire data to establish in-city smoke estimates. Then we will use this data to predict smoke over the next 25 years (2024-2049). Finally, we will address the issue of:
-### EKRC INSERT HUMAN CENTERED QUESTION HERE
+We will begin by analyzing historical fire data to establish in-city smoke estimates. Then we will use this data to predict smoke over the next 25 years (2024-2049).
 
 
 ## Licenses & API Information
