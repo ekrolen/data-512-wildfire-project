@@ -7,6 +7,8 @@ This goal of this project is to analyze wildfire smoke impacts on Pahrump, Nevad
 
 We will begin by analyzing historical fire data to establish in-city smoke estimates. Then we will use this data to predict smoke over the next 25 years (2024-2049).
 
+Finally, we will focus on a human-centered question: How does our smoke estimate and AQI correlate with Death Valley attendence? For more details on why we chose this question, please see the "Extension Plan" document in our main repository. 
+
 
 ## Licenses & API Information
 
@@ -29,7 +31,11 @@ USGS_Wildland_Fire_Combined_Dataset - This data is saved above the parent projec
 
 Wildland_Fire_Polygon_Metadata.xml - This file contains text metadata about the fire data. It will not be parsed and analyzed, but is an indespensible reference for data users.
 
-  
+Annual Park Recreation Visitation (1904 - Last Calendar Year).csv - This file contains the annual number of recreation visits to Death Valley since 1933. In its raw form, the file has the following 3 columns:
+    Year - year of park visitation
+    RecreationVisitors - annual total number of recreation visits (see Extension Plan for more information on what qualifies as a recreation visit)
+    TotalRecreationVisitors - sum total number of recreation visitors since 1933. Value is the same for all rows.
+
 ### Intermediate Data Files Created During Runtime
 
 fire_distances.csv - This file is created by calculating the distance between each fire in the USGS wildland fire combined data and Pahrump, NV. It has two columns:
@@ -124,3 +130,5 @@ yearly_avg_aqi.csv - This file contains aggregate yearly average AQI estimates f
 9. To create a prediction of future smoke, run the smoke_predictor script located in the scr/ folder.
 
 10. To visualize the number of fires occurring every 50 mile distance, total acres burned per year, and the fire smoke estimate vs AQI estimates for Pahrump, NV 1963-2020, please run the data_visualization script in scr/.
+
+11. Next we will compare our smoke and AQI estimates to annual Death Valley attendance. Before running the "death_valley_comparison" script, please download the data as a CSV from the [National Parks Service site](https://irma.nps.gov/Stats/SSRSReports/Park%20Specific%20Reports/Annual%20Park%20Recreation%20Visitation%20(1904%20-%20Last%20Calendar%20Year)?Park=DEVA) and save it to the "raw_data" folder. Please remove the first 3 formatted title rows of the file to make it easier for pandas to process. Once the data is cleaned and saved in the raw data folder, please feel free to run the script.
