@@ -119,16 +119,16 @@ yearly_avg_aqi.csv - This file contains aggregate yearly average AQI estimates f
 
 4. Save your "USGS_Wildland_Fire_Combined_Dataset.json" file to the directory above your project parent directory. We used GitHub to manage code and the JSON is larger than their file systems will allow. For this reason, we must reduce the data first, then save the data in the intermediate_data folder (see next step for data acquisition and filtering process).
 
-5. The data_acquisition script will require both the [Pyproj](https://pyproj4.github.io/pyproj/stable/index.html), the [geojson](https://pypi.org/project/geojson/) module and the wildfire user module from our class folder. Pyproj and geojson can be installed via pip. The wildfire user module should be downloaded from the course website, unzipped, and moved into the folder pointed to by your PYTHONPATH system variable.
+5. The data_acquisition script will require both the [Pyproj](https://pyproj4.github.io/pyproj/stable/index.html), the [geojson](https://pypi.org/project/geojson/) module and the wildfire user module from our [class folder](https://drive.google.com/drive/folders/1OJktGAx86hvMtirCUkGnS292r-FpPvLo). Pyproj and geojson can be installed via pip. The wildfire user module should be downloaded from the course website, unzipped, and moved into the folder pointed to by your PYTHONPATH system variable.
 
-6. Run the data_acquisition script located in scr/ to select information on fires in 1963-2023 which were within 1250 miles from Pahrump, NV.
+6. Run the data_acquisition script located in scr/ to filter information to fires from 1963-2023 which were within 1250 miles from Pahrump, NV.
 
-7. Run the data_processing script located in scr/ to create the fire smoke estimators for Pahrump. Significant assumptions and judgements went in to defining and calculating the smoke estimates, these decisions are captured in the "Purpose" section of the script.
+7. Run the data_processing script located in scr/ to create the annual fire smoke estimators for Pahrump. Significant assumptions and judgements went in to defining and calculating the smoke estimates, these decisions are captured in the "Purpose" section of the script.
 
-8. If you're interested in understanding how well our smoke estimate compares to the EPA's Air Quality Index, check out the epa_comparison script in scr/.
+8. If you're interested in understanding how well our smoke estimate compares to the EPA's Air Quality Index, check out the epa_comparison script in scr/. 
 
 9. To create a prediction of future smoke, run the smoke_predictor script located in the scr/ folder.
 
-10. To visualize the number of fires occurring every 50 mile distance, total acres burned per year, and the fire smoke estimate vs AQI estimates for Pahrump, NV 1963-2020, please run the data_visualization script in scr/.
+10. To visualize the number of fires occurring every 50 mile distance, total acres burned per year, and the fire smoke estimate vs AQI estimates for Pahrump, NV 1963-2020 please run the data_visualization script in scr/.
 
-11. Next we will compare our smoke and AQI estimates to annual Death Valley attendance. Before running the "death_valley_comparison" script, please download the data as a CSV from the [National Parks Service site](https://irma.nps.gov/Stats/SSRSReports/Park%20Specific%20Reports/Annual%20Park%20Recreation%20Visitation%20(1904%20-%20Last%20Calendar%20Year)?Park=DEVA) and save it to the "raw_data" folder. Please remove the first 3 formatted title rows of the file to make it easier for pandas to process. Once the data is cleaned and saved in the raw data folder, please feel free to run the script.
+11. Finally, we will compare our smoke and AQI estimates to annual Death Valley attendance. Before running the "death_valley_comparison" script, please download the attendance data as a CSV from the [National Parks Service site](https://irma.nps.gov/Stats/SSRSReports/Park%20Specific%20Reports/Annual%20Park%20Recreation%20Visitation%20(1904%20-%20Last%20Calendar%20Year)?Park=DEVA) and save it to the "raw_data" folder. Please remove the first 3 formatted title rows of the file to make it easier for pandas to process. Once the data is cleaned and saved in the raw data folder, please feel free to run the script.
