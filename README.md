@@ -7,7 +7,7 @@ This goal of this project is to analyze wildfire smoke impacts on Pahrump, Nevad
 
 We will begin by analyzing historical fire data to establish in-city smoke estimates. Then we will use this data to predict smoke over the next 25 years (2024-2049).
 
-Finally, we will focus on a human-centered question: How does our smoke estimate and AQI correlate with Death Valley attendence? For more details on why we chose this question, please see the "Extension Plan" document in our main repository. 
+Finally, we will focus on a human-centered question: How does our smoke estimate and AQI correlate with Death Valley attendence? For more details on why we chose this question, please see the "Extension Plan" document in our 'project_documentation' folder. 
 
 
 ## Licenses & API Information
@@ -21,12 +21,12 @@ The USGS Wildland Fire Data resides in the Public Domain. Data from the U.S. Gov
 
 ### Raw/Input Data Files
 
-USGS_Wildland_Fire_Combined_Dataset - This data is saved above the parent project directory and contains the combined polygons and additional fields of matching fires found across 40 datasources. There are six keys which we describe in detail below:
+USGS_Wildland_Fire_Combined_Dataset - This data is saved a level above the parent project directory due to Github size constraints. It contains the combined polygons and additional fields of matching fires found across 40 datasources. There are six keys which we describe in detail below:
     displayFieldName - Empty value
     gemoetryType - Single value of "esriGeometryPolygon"
     spatialReference - Dictionary of {'wkid': 102008, 'latestWkid': 102008}
-    fieldAliases - This dictionary contains each of the 30 field variables as keys, and their "English translations" as values. As an example, 'USGS_Assigned_ID':'USGS Assigned ID'. The variable names and their aliases are straightforward. For more information on what each field means, please see the USGS provided metadata as this information is not provided in the data itself.
-    fields - This key returns a list of dictionaries which provides the name of each field, its type (e.g., esriFieldTypeOID, esriFieldTypeInteger), its alias, and occasionally the length of the field (e.g., 100, 300000). See Wildland_Fire_Polygon_Metadata.xml for more.
+    fieldAliases - This dictionary contains each of the 30 field variables as keys, and their "English translations" as values. As an example, 'USGS_Assigned_ID':'USGS Assigned ID'. The variable names and their aliases are straightforward. For more information on what each field means, please see the USGS provided metadata.
+    fields - This key returns a list of dictionaries which provides the name of each field, its type (e.g., esriFieldTypeOID, esriFieldTypeInteger), its alias, and occasionally the length of the field (e.g., 100, 300000). See Wildland_Fire_Polygon_Metadata.xml for more information.
     features - This key returns what we will be using as the fire data. It is a list of 135,061 'attribute' dictionaries, each of which also contains a dictionary with the fields specified in "fields" or "fieldAliases". See Wildland_Fire_Polygon_Metadata.xml for more.
 
 Wildland_Fire_Polygon_Metadata.xml - This file contains text metadata about the fire data. It will not be parsed and analyzed, but is an indespensible reference for data users.
@@ -117,18 +117,18 @@ yearly_avg_aqi.csv - This file contains aggregate yearly average AQI estimates f
 
 3. Copy or move the "Wildland_Fire_Polygon_Metadata.xml" into the "raw_data" folder of your repo. The Metadata file does not contain analyzable data, but is useful for understanding the raw data more thoroughly. 
 
-4. Save your "USGS_Wildland_Fire_Combined_Dataset.json" file to the directory above your project parent directory. We used GitHub to manage code and the JSON is larger than their file systems will allow. For this reason, we must reduce the data first, then save the data in the intermediate_data folder (see next step for data acquisition and filtering process).
+4. Save the "USGS_Wildland_Fire_Combined_Dataset.json" file to the directory above your project parent directory. We used GitHub to manage code and the JSON is larger than their file systems will allow. For this reason, we must reduce the data first, then save the data in the intermediate_data folder (see next step for data acquisition and filtering process).
 
-5. The data_acquisition script will require both the [Pyproj](https://pyproj4.github.io/pyproj/stable/index.html), the [geojson](https://pypi.org/project/geojson/) module and the wildfire user module from our [class folder](https://drive.google.com/drive/folders/1OJktGAx86hvMtirCUkGnS292r-FpPvLo). Pyproj and geojson can be installed via pip. The wildfire user module should be downloaded from the course website, unzipped, and moved into the folder pointed to by your PYTHONPATH system variable.
+5. The data_acquisition script will require the [Pyproj module](https://pyproj4.github.io/pyproj/stable/index.html), [geojson module](https://pypi.org/project/geojson/) and wildfire user-created module from our [class folder](https://drive.google.com/drive/folders/1OJktGAx86hvMtirCUkGnS292r-FpPvLo). Pyproj and geojson can be installed via pip. The wildfire user module should be downloaded from the course website (linked as "class folder"), unzipped, and moved into the folder pointed to by your PYTHONPATH system variable.
 
-6. Run the data_acquisition script located in scr/ to filter information to fires from 1963-2023 which were within 1250 miles from Pahrump, NV.
+6. Run the data_acquisition script located in scr/ to filter fires from 1963-2023 which were within 1250 miles from Pahrump, NV.
 
 7. Run the data_processing script located in scr/ to create the annual fire smoke estimators for Pahrump. Significant assumptions and judgements went in to defining and calculating the smoke estimates, these decisions are captured in the "Purpose" section of the script.
 
-8. If you're interested in understanding how well our smoke estimate compares to the EPA's Air Quality Index, check out the epa_comparison script in scr/. 
+8. If you're interested in understanding how well our smoke estimate compares to the EPA's Air Quality Index, check out and run the epa_comparison script in scr/. 
 
 9. To create a prediction of future smoke, run the smoke_predictor script located in the scr/ folder.
 
 10. To visualize the number of fires occurring every 50 mile distance, total acres burned per year, and the fire smoke estimate vs AQI estimates for Pahrump, NV 1963-2020 please run the data_visualization script in scr/.
 
-11. Finally, we will compare our smoke and AQI estimates to annual Death Valley attendance. Before running the "death_valley_comparison" script, please download the attendance data as a CSV from the [National Parks Service site](https://irma.nps.gov/Stats/SSRSReports/Park%20Specific%20Reports/Annual%20Park%20Recreation%20Visitation%20(1904%20-%20Last%20Calendar%20Year)?Park=DEVA) and save it to the "raw_data" folder. Please remove the first 3 formatted title rows of the file to make it easier for pandas to process. Once the data is cleaned and saved in the raw data folder, please feel free to run the script.
+11. Finally, we will compare our smoke and AQI estimates to annual Death Valley attendance. Before running the "death_valley_comparison" script, please download the attendance data as a CSV from the [National Parks Service site](https://irma.nps.gov/Stats/SSRSReports/Park%20Specific%20Reports/Annual%20Park%20Recreation%20Visitation%20(1904%20-%20Last%20Calendar%20Year)?Park=DEVA) and save it to the "raw_data" folder. Please remove the first 3 formatted title rows of the file to make it easier for pandas to process. Once the data is cleaned and saved in the raw data folder run the script. The csv file's name is "Annual Park Recreation Visitation (1904 - Last Calendar Year).csv".
