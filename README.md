@@ -40,9 +40,11 @@ Annual Park Recreation Visitation (1904 - Last Calendar Year).csv - This file co
 
 fire_distances.csv - This file is created by calculating the distance between each fire in the USGS wildland fire combined data and Pahrump, NV. It has two columns:
     OBJECTID - the OBJECTID of the fire in question
-    shortest_dist - the shortest distance between the edge of the fire and Pahrump
+    shortest_dist - the shortest distance between the edge of the fire and the center of Pahrump
 
 close_fires.csv - This file has the same fields as the above, but only contains fires within 1250 miles from Pahrump.
+    OBJECTID - the OBJECTID of fires within 1250 miles from Pahrump
+    shortest_dist - the shortest distance between the edge of the fire and the center of Pahrump
 
 fire_features.csv - This file takes the relevent fire features for fires occurring after 1963 (inclusive) from the USGS wildland fire combined data which will later be used to create a smoke estimate. It has the following columns:
     objectid - the fire's objectid used to uniquely identify it
@@ -51,7 +53,7 @@ fire_features.csv - This file takes the relevent fire features for fires occurri
     GIS_Acres - acres of the fire polygon calculated using the Calculate Geometry tool in ArcGIS pro
     Overlap_Within_1_or_2_Flag - areas that burned with >10% overlap of the current fire within 1 or 2 years of the current burn as determined by ArcGIS Tabulate Intersection Tool
 
-filtered_fire_info.csv - This file combines the fire_distances and fire_features information above to keep select information only on the fires which are within 1250 miles from Pahrump and occurred after 1962 (inclusive). The columns are as follows:
+filtered_fire_info.csv - This file combines the fire_distances and fire_features information above to keep select information only on the fires which are within 1250 miles from Pahrump and occurred after 1963 (inclusive). The columns are as follows:
     OBJECTID - the OBJECTID of the fire in question
     Assigned_Fire_Type - what kind of fire was reported. Values include wildfire, likely wildfire, unknown - likely wildfire, prescribed fire, unknown - likely prescribed fire
     Fire_Year - the year the fire took place
@@ -74,7 +76,7 @@ annual_smoke_estimate.csv - This file contains the annual smoke estimates for Pa
     
 yearly_avg_aqi.csv - This file contains aggregate yearly average AQI estimates for all sensors within Nye County. The columns are as follows:
     year - year the AQI information was collected
-    annual_avg_aqi - the average of the AQI particulate information across all sensors in Nye county, taken over fire season (may 1st - Oct 31st) 1963-2023.
+    annual_avg_aqi - the average of the AQI particulate information across all sensors in Nye county, taken over fire season (May 1st - Oct 31st) 1963-2023 (or over years data was available).
     
 2049_smoke_estimates.csv - This file contains the smoke estimates for years 1963-2049. The columns are:
     Fire Year - year containing fires
